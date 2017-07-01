@@ -47,7 +47,6 @@ class Configuration(models.Model):
 
 class PackageInfoField(models.Field):
     description = u'Python Package Information Field'
-    __metaclass__ = models.SubfieldBase
 
     def __init__(self, *args, **kwargs):
         kwargs['editable'] = False
@@ -64,6 +63,9 @@ class PackageInfoField(models.Field):
         if isinstance(value, MultiValueDict):
             return value
         raise ValueError('Unexpected value encountered when converting data to python')
+        
+    def from_db_value(self, value, expression, connection, context):
+        return self.to_python(value)
 
     def get_prep_value(self, value):
         if isinstance(value, MultiValueDict):
@@ -232,7 +234,7 @@ class Distribution(models.Model):
     content = models.FileField(upload_to=distribution_upload_path)
     md5_digest = models.CharField(max_length=32, blank=True, editable=False)
     filetype = models.ForeignKey(DistributionType, related_name='distributions')
-    pyversion = models.ForeignKey(PythonVersion, related_name='distributions', null=True,
+    pyversion = models.ForeignKey(PythonVersion, related_name='distributions', null=True, blank=True,
                                   help_text='Python version, or None for any version of Python')
     platform = models.ForeignKey(PlatformName, related_name='distributions', null=True,
                                  help_text='Platform name or None if platform agnostic')
