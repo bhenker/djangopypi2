@@ -43,7 +43,7 @@ setup(
     ],
 
     install_requires=[
-        'Django == 1.5.1',
+        'Django < 1.10',
         'django-registration',
         'setuptools',
         'pkginfo',
