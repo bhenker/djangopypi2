@@ -124,6 +124,7 @@ INSTALLED_APPS = (
     'djangopypi2.apps.pypi_metadata',
     'djangopypi2.apps.pypi_packages',
     'djangopypi2.apps.pypi_frontend',
+    'mod_wsgi.server',
 )
 
 ACCOUNT_ACTIVATION_DAYS = 7

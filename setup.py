@@ -48,6 +48,7 @@ setup(
         'setuptools',
         'pkginfo',
         'docutils',
+        'mod_wsgi',
     ],
 
     setup_requires=[
